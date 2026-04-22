@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class HUD : MonoBehaviour
@@ -9,6 +10,10 @@ public class HUD : MonoBehaviour
     public GameObject gameOverPanel;
     public TextMeshProUGUI gameOverText;
 
+    public GameObject greenPotionGroup;
+    public Slider greenPotionBar;
+    public TextMeshProUGUI greenPotionTimeText;
+
     private PlayerController playerController;
     private bool gameOverShown;
 
@@ -16,6 +21,7 @@ public class HUD : MonoBehaviour
     {
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         if (gameOverPanel != null) gameOverPanel.SetActive(false);
+        if (greenPotionGroup != null) greenPotionGroup.SetActive(false);
     }
 
     void Update()
@@ -33,11 +39,30 @@ public class HUD : MonoBehaviour
             hpText.text = "HP: " + hearts;
         }
 
+        UpdateGreenPotionBar();
+
         if (playerController.gameOver && !gameOverShown)
         {
             gameOverShown = true;
             ShowGameOver();
         }
+    }
+
+    void UpdateGreenPotionBar()
+    {
+        if (greenPotionGroup == null) return;
+
+        var gm = GameManager.Instance;
+        bool active = gm.speedBoostActive && gm.speedBoostDuration > 0f;
+
+        if (greenPotionGroup.activeSelf != active) greenPotionGroup.SetActive(active);
+        if (!active) return;
+
+        float remaining = Mathf.Max(0f, gm.speedBoostRemaining);
+        float ratio = Mathf.Clamp01(remaining / gm.speedBoostDuration);
+
+        if (greenPotionBar != null) greenPotionBar.value = ratio;
+        if (greenPotionTimeText != null) greenPotionTimeText.text = remaining.ToString("0.0") + "s";
     }
 
     void ShowGameOver()

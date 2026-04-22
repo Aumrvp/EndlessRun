@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     public float floorY = 0f;
     public float ceilingY = 4f;
 
+    private static readonly Vector3 DefaultGravity = new Vector3(0f, -9.81f, 0f);
+
     private Vector3 baseGravity;
     private Vector3 originalScale;
     private Quaternion originalRotation;
@@ -55,7 +57,7 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Physics.gravity *= gravityMultiplier;
+        Physics.gravity = DefaultGravity * gravityMultiplier;
         baseGravity = Physics.gravity;
         originalScale = transform.localScale;
         originalRotation = transform.rotation;

@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public float speedMultiplier = 1f;
     public bool speedBoostActive { get; private set; }
     public float speedBoostRemaining { get; private set; }
+    public float speedBoostDuration { get; private set; }
 
     private bool isRunning = true;
     private Coroutine speedBoostRoutine;
@@ -56,6 +57,7 @@ public class GameManager : MonoBehaviour
     {
         speedMultiplier = multiplier;
         speedBoostActive = true;
+        speedBoostDuration = duration;
         speedBoostRemaining = duration;
 
         while (speedBoostRemaining > 0f)
@@ -67,6 +69,7 @@ public class GameManager : MonoBehaviour
         speedMultiplier = 1f;
         speedBoostActive = false;
         speedBoostRemaining = 0f;
+        speedBoostDuration = 0f;
     }
 
     public void StopRun()
