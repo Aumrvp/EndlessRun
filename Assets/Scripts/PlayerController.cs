@@ -129,8 +129,11 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Obstacle"))
         {
-            if (isInvincible) return;
-            TakeDamage(collision.contacts[0].point);
+            if (!isInvincible)
+            {
+                TakeDamage(collision.contacts[0].point);
+            }
+            Destroy(collision.gameObject);
         }
     }
 
@@ -143,10 +146,6 @@ public class PlayerController : MonoBehaviour
         if (currentHP <= 0)
         {
             Die();
-        }
-        else
-        {
-            StartCoroutine(InvincibilityFlash());
         }
     }
 
