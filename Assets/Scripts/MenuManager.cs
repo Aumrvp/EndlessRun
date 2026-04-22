@@ -14,10 +14,19 @@ public class MenuManager : MonoBehaviour
     public TextMeshProUGUI historyCoinText;
 
     private bool isSoundOn = true;
+    private static bool skipStartScreen = false;
 
     void Start()
     {
-        
+        if (skipStartScreen)
+        {
+            skipStartScreen = false;
+            startPanel.SetActive(false);
+            historyPanel.SetActive(false);
+            optionsPanel.SetActive(false);
+            Time.timeScale = 1f;
+            return;
+        }
         ShowStartScreen();
     }
 
@@ -78,8 +87,15 @@ public class MenuManager : MonoBehaviour
     
     public void RestartGame()
     {
-        
-        Time.timeScale = 1f; 
+        skipStartScreen = true;
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void GoToLobby()
+    {
+        skipStartScreen = false;
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
