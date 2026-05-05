@@ -2187,6 +2187,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44325f5e4d001bc4fbd60e4b886be558, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  background2Sprite: {fileID: 21300000, guid: 66ce0fda7508547d2be6b20eac53f119, type: 3}
+  targetDistance: 200
 --- !u!114 &835818923
 MonoBehaviour:
   m_ObjectHideFlags: 0
